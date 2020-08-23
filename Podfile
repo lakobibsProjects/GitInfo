@@ -8,7 +8,9 @@ target 'GitInfo' do
   # Pods for runanddone.employee
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
-pod 'Alamofire', '~>4.7'
-pod 'AlamofireNetworkActivityLogger', '~> 2.4'
+pod 'Alamofire'
+pod 'AlamofireNetworkActivityLogger'
+pod 'Kingfisher'
 pod "SnapKit"
+pod 'Bond'
 end
