@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7DE7B5FF9621ECFA06739919 /* Pods_GitInfo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79ED5B6C14B0F0B6D05E4819 /* Pods_GitInfo.framework */; };
+		E985B8A624F293CE002BAC3D /* AccountDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985B8A524F293CE002BAC3D /* AccountDescriptionViewController.swift */; };
+		E985B8A924F2940C002BAC3D /* AccountDescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985B8A824F2940C002BAC3D /* AccountDescriptionViewModel.swift */; };
+		E985B8AB24F29CC9002BAC3D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985B8AA24F29CC9002BAC3D /* DataManager.swift */; };
+		E985B8AD24F2B048002BAC3D /* AccountRequestObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E985B8AC24F2B048002BAC3D /* AccountRequestObserver.swift */; };
 		E986F48A24ED55A100A520DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E986F48924ED55A100A520DC /* AppDelegate.swift */; };
 		E986F48C24ED55A100A520DC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E986F48B24ED55A100A520DC /* SceneDelegate.swift */; };
 		E986F49324ED55A200A520DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E986F49224ED55A200A520DC /* Assets.xcassets */; };
@@ -20,12 +24,16 @@
 		E98CD4D624F15F380078E554 /* SearchresultByName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98CD4D524F15F380078E554 /* SearchresultByName.swift */; };
 		E98CD4D824F18A9A0078E554 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98CD4D724F18A9A0078E554 /* AccountTableViewCell.swift */; };
 		E9B9072924EF0DA600587353 /* SearchAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9072824EF0DA600587353 /* SearchAccountViewModel.swift */; };
-		E9B9072C24EF0DE700587353 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9072B24EF0DE700587353 /* RequestManager.swift */; };
+		E9B9072C24EF0DE700587353 /* AccountRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9072B24EF0DE700587353 /* AccountRequestManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0C687AFD79C1C3A157E2C01D /* Pods-GitInfo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitInfo.debug.xcconfig"; path = "Target Support Files/Pods-GitInfo/Pods-GitInfo.debug.xcconfig"; sourceTree = "<group>"; };
 		79ED5B6C14B0F0B6D05E4819 /* Pods_GitInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E985B8A524F293CE002BAC3D /* AccountDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDescriptionViewController.swift; sourceTree = "<group>"; };
+		E985B8A824F2940C002BAC3D /* AccountDescriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDescriptionViewModel.swift; sourceTree = "<group>"; };
+		E985B8AA24F29CC9002BAC3D /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		E985B8AC24F2B048002BAC3D /* AccountRequestObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequestObserver.swift; sourceTree = "<group>"; };
 		E986F48624ED55A100A520DC /* GitInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E986F48924ED55A100A520DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E986F48B24ED55A100A520DC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -40,7 +48,7 @@
 		E98CD4D524F15F380078E554 /* SearchresultByName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchresultByName.swift; sourceTree = "<group>"; };
 		E98CD4D724F18A9A0078E554 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		E9B9072824EF0DA600587353 /* SearchAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAccountViewModel.swift; sourceTree = "<group>"; };
-		E9B9072B24EF0DE700587353 /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		E9B9072B24EF0DE700587353 /* AccountRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequestManager.swift; sourceTree = "<group>"; };
 		E9CF42631EC541CCF7D9FC4D /* Pods-GitInfo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitInfo.release.xcconfig"; path = "Target Support Files/Pods-GitInfo/Pods-GitInfo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,6 +79,31 @@
 				79ED5B6C14B0F0B6D05E4819 /* Pods_GitInfo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E985B8A324F2938D002BAC3D /* SearchAccount */ = {
+			isa = PBXGroup;
+			children = (
+				E986F4A524ED887A00A520DC /* SearchAccountViewController.swift */,
+				E98CD4D724F18A9A0078E554 /* AccountTableViewCell.swift */,
+			);
+			path = SearchAccount;
+			sourceTree = "<group>";
+		};
+		E985B8A424F293AA002BAC3D /* AccountDescription */ = {
+			isa = PBXGroup;
+			children = (
+				E985B8A524F293CE002BAC3D /* AccountDescriptionViewController.swift */,
+			);
+			path = AccountDescription;
+			sourceTree = "<group>";
+		};
+		E985B8A724F293FA002BAC3D /* AccountDescription */ = {
+			isa = PBXGroup;
+			children = (
+				E985B8A824F2940C002BAC3D /* AccountDescriptionViewModel.swift */,
+			);
+			path = AccountDescription;
 			sourceTree = "<group>";
 		};
 		E986F47D24ED55A100A520DC = {
@@ -118,6 +151,7 @@
 		E986F49E24ED7F2A00A520DC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E985B8A724F293FA002BAC3D /* AccountDescription */,
 				E9B9072724EEA35900587353 /* SearchAccount */,
 				E986F4A024ED7F4200A520DC /* Coordination */,
 			);
@@ -127,8 +161,8 @@
 		E986F49F24ED7F3100A520DC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E986F4A524ED887A00A520DC /* SearchAccountViewController.swift */,
-				E98CD4D724F18A9A0078E554 /* AccountTableViewCell.swift */,
+				E985B8A424F293AA002BAC3D /* AccountDescription */,
+				E985B8A324F2938D002BAC3D /* SearchAccount */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -155,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				E98CD4D524F15F380078E554 /* SearchresultByName.swift */,
+				E985B8AC24F2B048002BAC3D /* AccountRequestObserver.swift */,
 			);
 			path = CodableObjects;
 			sourceTree = "<group>";
@@ -171,7 +206,8 @@
 			isa = PBXGroup;
 			children = (
 				E98CD4D424F15F0B0078E554 /* CodableObjects */,
-				E9B9072B24EF0DE700587353 /* RequestManager.swift */,
+				E9B9072B24EF0DE700587353 /* AccountRequestManager.swift */,
+				E985B8AA24F29CC9002BAC3D /* DataManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -292,15 +328,19 @@
 			files = (
 				E986F4A224ED7F5400A520DC /* Coordinator.swift in Sources */,
 				E98CD4D624F15F380078E554 /* SearchresultByName.swift in Sources */,
+				E985B8A924F2940C002BAC3D /* AccountDescriptionViewModel.swift in Sources */,
+				E985B8AB24F29CC9002BAC3D /* DataManager.swift in Sources */,
 				E98CD4D324F152350078E554 /* AppColor.swift in Sources */,
 				E986F4A624ED887A00A520DC /* SearchAccountViewController.swift in Sources */,
 				E986F48A24ED55A100A520DC /* AppDelegate.swift in Sources */,
+				E985B8A624F293CE002BAC3D /* AccountDescriptionViewController.swift in Sources */,
 				E98CD4D824F18A9A0078E554 /* AccountTableViewCell.swift in Sources */,
 				E986F4A424ED7F6000A520DC /* MainCoordinator.swift in Sources */,
 				E986F48C24ED55A100A520DC /* SceneDelegate.swift in Sources */,
-				E9B9072C24EF0DE700587353 /* RequestManager.swift in Sources */,
+				E9B9072C24EF0DE700587353 /* AccountRequestManager.swift in Sources */,
 				E9B9072924EF0DA600587353 /* SearchAccountViewModel.swift in Sources */,
 				E986F4A924ED88D500A520DC /* Extensions.swift in Sources */,
+				E985B8AD24F2B048002BAC3D /* AccountRequestObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

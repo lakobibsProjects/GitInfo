@@ -48,7 +48,6 @@ class SearchAccountViewController: UIViewController, Storyboarded {
         initViews()
         setupViews()
         setupConstraints()
-        
     }
     
     private func initViews(){

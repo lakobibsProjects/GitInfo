@@ -9,18 +9,23 @@
 import Foundation
 import Bond
 
-class SearchAccountViewModel {
+class SearchAccountViewModel: AccountRequestObserver {
+    var id: Int = 0
     
     var tableContentDataSouce = MutableObservableArray<ShortAcc>()
     var error: Error?
     var refreshing = false
     
-    private let dataManager = RequestManager.shared
+    private let dataManager = AccountRequestManager.shared
+    
+    init(){
+        AccountRequestManager.shared.attach(self)
+    }
     
     func initializeData(name: String){
         tableContentDataSouce.removeAll()
-        RequestManager.shared.getUsersByName(name: name, onPage: 1)
-        if let temp = RequestManager.shared.usersResponse{
+        AccountRequestManager.shared.getUsersByName(name: name, onPage: 1)
+        if let temp = AccountRequestManager.shared.usersResponse{
             for acc in temp.items{
                 let sa = ShortAcc(id: acc.id, name: acc.login, avatarURL: acc.avatarURL, type: acc.type)
                 tableContentDataSouce.append(sa)
@@ -29,13 +34,22 @@ class SearchAccountViewModel {
     }
     
     func apendData(name: String, onPage: Int){
-        RequestManager.shared.getUsersByName(name: name, onPage: onPage)
-        if let temp = RequestManager.shared.usersResponse{
+        AccountRequestManager.shared.getUsersByName(name: name, onPage: onPage)
+        if let temp = AccountRequestManager.shared.usersResponse{
             for acc in temp.items{
                 let sa = ShortAcc(id: acc.id, name: acc.login, avatarURL: acc.avatarURL, type: acc.type)
                 tableContentDataSouce.append(sa)
             }
         }
+    }
+    
+    func update(requestManager: AccountRequestManager, data: Welcome?) {
+        if let data = data{
+            data.items.forEach({
+                tableContentDataSouce.append(ShortAcc(id: $0.id, name: $0.login, avatarURL: $0.avatarURL, type: $0.type))
+            })
+        }
+        
     }
 
 }

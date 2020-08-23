@@ -1,6 +1,6 @@
 
 //
-//  RequestManager.swift
+//  AccountRequestManager.swift
 //  GitInfo
 //
 //  Created by user166683 on 8/20/20.
@@ -10,7 +10,7 @@
 import Foundation
 import Alamofire
 
-class RequestManager{
+class AccountRequestManager{
     let dafaultBeginURL = "https://api.github.com"
     let generalAcceptHeader = "application/vnd.github.v3+json"
     let searchForNameMiddleURL = "/search/users?q="
@@ -20,8 +20,8 @@ class RequestManager{
         
     }
     
-    static var shared: RequestManager = {
-        let instance = RequestManager()
+    static var shared: AccountRequestManager = {
+        let instance = AccountRequestManager()
         return instance
     }()
     
@@ -34,9 +34,26 @@ class RequestManager{
             request.responseDecodable(of: Welcome.self) { (response) in
                 guard let response = response.value else { return }
                 self.usersResponse = response
+                self.notify(data: response)
             }
             print("\(self.usersResponse == nil)")
         }
+    }
+    
+    var state: Int = { return Int(arc4random_uniform(10)) }()
+
+    private lazy var observers = [AccountRequestObserver]()
+
+    func attach(_ observer: AccountRequestObserver) {
+        observers.append(observer)
+    }
+
+    func detach(_ observer: AccountRequestObserver) {
+         observers = observers.filter({$0.id != observer.id})
+    }
+
+    func notify(data: Welcome?) {
+        observers.forEach({ $0.update(requestManager: self, data: data)})
     }
     
 }
