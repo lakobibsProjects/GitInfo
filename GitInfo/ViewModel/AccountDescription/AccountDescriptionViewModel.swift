@@ -9,7 +9,11 @@
 
 import Foundation
 
-class AccountDescriptionViewModel{
-    var accId: Int?
+class AccountDescriptionViewModel: AccountByLoginRequestObserver{
+    var id: Int = 1
+    
+    func update(user: UserByLogin) {
+        print("\(user.name ?? "")")
+    }
     
 }

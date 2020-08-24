@@ -9,21 +9,21 @@
 import Foundation
 import Alamofire
 
-// MARK: - Welcome
-struct Welcome: Codable {
+// MARK: - AccountSearch
+struct AccountSearch: Codable {
     let totalCount: Int
     let incompleteResults: Bool
-    let items: [Item]
+    let accounts: [SearchedAccount]
 
     enum CodingKeys: String, CodingKey {
         case totalCount = "total_count"
         case incompleteResults = "incomplete_results"
-        case items
+        case accounts = "items"
     }
 }
 
 // MARK: - Item
-struct Item: Codable {
+struct SearchedAccount: Codable {
     let login: String
     let id: Int
     let nodeID: String

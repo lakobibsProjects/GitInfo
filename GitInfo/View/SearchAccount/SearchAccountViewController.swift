@@ -82,7 +82,7 @@ class SearchAccountViewController: UIViewController, Storyboarded {
         accountsTableView.backgroundColor = AppColor.white00
         accountsTableView.allowsSelection = true
         accountsTableView.isUserInteractionEnabled = true
-        vm.tableContentDataSouce.bind(to: accountsTableView, cellType: AccountTableViewCell.self){ (cell, acc) in
+        vm.accountSearchResult.bind(to: accountsTableView, cellType: AccountTableViewCell.self){ (cell, acc) in
             cell.setProductData(account: acc)
         }
         
@@ -128,7 +128,7 @@ class SearchAccountViewController: UIViewController, Storyboarded {
                     self.accountsTableView.beginUpdates()
                     self.vm.initializeData(name: name)
                     self.accountsTableView.endUpdates()
-                    print("\(self.vm.tableContentDataSouce.count)")
+                    print("\(self.vm.accountSearchResult.count)")
                     print("\(self.accountsTableView.numberOfRows(inSection: 0))")
                     //accountsTableView.reloadData()
                 }
@@ -141,12 +141,12 @@ class SearchAccountViewController: UIViewController, Storyboarded {
 //MARK: - TableView delegate and dataSource
 extension SearchAccountViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vm.tableContentDataSouce.count
+        return vm.accountSearchResult.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AccountTableViewCell", for: indexPath) as! AccountTableViewCell
-        let account = vm.tableContentDataSouce[indexPath.section]
+        let account = vm.accountSearchResult[indexPath.section]
         
         cell.setProductData(account: account)
         

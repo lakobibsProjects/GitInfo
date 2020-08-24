@@ -9,46 +9,43 @@
 import Foundation
 import Bond
 
-class SearchAccountViewModel: AccountRequestObserver {
+class SearchAccountViewModel: AccountSearchRequestObserver {
     var id: Int = 0
     
-    var tableContentDataSouce = MutableObservableArray<ShortAcc>()
+    var accountSearchResult = MutableObservableArray<ShortAcc>()
     var error: Error?
     var refreshing = false
     
-    private let dataManager = AccountRequestManager.shared
+    private let dataManager = AccountSearchRequestManager.shared
     
     init(){
-        AccountRequestManager.shared.attach(self)
+        AccountSearchRequestManager.shared.attach(self)
     }
     
     func initializeData(name: String){
-        tableContentDataSouce.removeAll()
-        AccountRequestManager.shared.getUsersByName(name: name, onPage: 1)
-        if let temp = AccountRequestManager.shared.usersResponse{
-            for acc in temp.items{
-                let sa = ShortAcc(id: acc.id, name: acc.login, avatarURL: acc.avatarURL, type: acc.type)
-                tableContentDataSouce.append(sa)
-            }
-        }
+        AccountSearchRequestManager.shared.updateUsersByName(name: name, onPage: 1)
     }
     
     func apendData(name: String, onPage: Int){
-        AccountRequestManager.shared.getUsersByName(name: name, onPage: onPage)
-        if let temp = AccountRequestManager.shared.usersResponse{
-            for acc in temp.items{
-                let sa = ShortAcc(id: acc.id, name: acc.login, avatarURL: acc.avatarURL, type: acc.type)
-                tableContentDataSouce.append(sa)
-            }
-        }
+        AccountSearchRequestManager.shared.updateUsersByName(name: name, onPage: 1)            
     }
     
-    func update(requestManager: AccountRequestManager, data: Welcome?) {
-        if let data = data{
-            data.items.forEach({
-                tableContentDataSouce.append(ShortAcc(id: $0.id, name: $0.login, avatarURL: $0.avatarURL, type: $0.type))
-            })
+    func update(data: AccountSearch?, page: Int) {
+        if page != 1{
+            if let data = data{
+                data.accounts.forEach({
+                    accountSearchResult.append(ShortAcc(id: $0.id, name: $0.login, avatarURL: $0.avatarURL, type: $0.type))
+                })
+            }
+        } else{
+            if let data = data{
+                accountSearchResult.removeAll()
+                data.accounts.forEach({
+                    accountSearchResult.append(ShortAcc(id: $0.id, name: $0.login, avatarURL: $0.avatarURL, type: $0.type))
+                })
+            }
         }
+        
         
     }
 

@@ -1,6 +1,6 @@
 
 //
-//  AccountRequestManager.swift
+//  AccountSearchRequestManager.swift
 //  GitInfo
 //
 //  Created by user166683 on 8/20/20.
@@ -10,31 +10,31 @@
 import Foundation
 import Alamofire
 
-class AccountRequestManager{
+class AccountSearchRequestManager{
     let dafaultBeginURL = "https://api.github.com"
     let generalAcceptHeader = "application/vnd.github.v3+json"
     let searchForNameMiddleURL = "/search/users?q="
-    var usersResponse: Welcome?
+    var usersResponse: AccountSearch?
     
     private init(){
         
     }
     
-    static var shared: AccountRequestManager = {
-        let instance = AccountRequestManager()
+    static var shared: AccountSearchRequestManager = {
+        let instance = AccountSearchRequestManager()
         return instance
     }()
     
-    func getUsersByName(name: String, onPage: Int) {
+    func updateUsersByName(name: String, onPage: Int) {
         DispatchQueue.main.async {
             let urlString = "\(self.dafaultBeginURL)\(self.searchForNameMiddleURL)\(name)&page=\(onPage)&per_page=20"
             print(urlString)
             let request =  AF.request(urlString)
             
-            request.responseDecodable(of: Welcome.self) { (response) in
+            request.responseDecodable(of: AccountSearch.self) { (response) in
                 guard let response = response.value else { return }
                 self.usersResponse = response
-                self.notify(data: response)
+                self.notify(data: response, page: onPage)
             }
             print("\(self.usersResponse == nil)")
         }
@@ -42,18 +42,18 @@ class AccountRequestManager{
     
     var state: Int = { return Int(arc4random_uniform(10)) }()
 
-    private lazy var observers = [AccountRequestObserver]()
+    private lazy var observers = [AccountSearchRequestObserver]()
 
-    func attach(_ observer: AccountRequestObserver) {
+    func attach(_ observer: AccountSearchRequestObserver) {
         observers.append(observer)
     }
 
-    func detach(_ observer: AccountRequestObserver) {
+    func detach(_ observer: AccountSearchRequestObserver) {
          observers = observers.filter({$0.id != observer.id})
     }
 
-    func notify(data: Welcome?) {
-        observers.forEach({ $0.update(requestManager: self, data: data)})
+    func notify(data: AccountSearch?, page: Int) {
+        observers.forEach({ $0.update(data: data, page: page)})
     }
     
 }

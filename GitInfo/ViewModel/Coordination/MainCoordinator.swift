@@ -31,7 +31,6 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
     func accounDescription(accId: Int){
         let vc = AccountDescriptionViewController.instantiateFromStoryboard()
         vc.coordinator = self
-        vc.vm.accId = accId
         
         navigationController.pushViewController(vc, animated: true)
     }

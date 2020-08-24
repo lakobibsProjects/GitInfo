@@ -1,5 +1,6 @@
+
 //
-//  DataManager.swift
+//  AccountSearchRequestObserver.swift
 //  GitInfo
 //
 //  Created by user166683 on 8/23/20.
@@ -8,6 +9,4 @@
 
 import Foundation
 
-class DataManager{
-    let accountData = AccountRequestManager.shared.usersResponse
-}
+
