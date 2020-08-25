@@ -59,7 +59,7 @@ class AccountTableViewCell: UITableViewCell {
             ])
         }
         
-        self.nameLabel.text = account.name
+        self.nameLabel.text = account.login
         
         switch account.type{
         case .organization:

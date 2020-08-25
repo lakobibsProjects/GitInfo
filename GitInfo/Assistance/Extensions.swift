@@ -36,15 +36,7 @@ extension UIViewController{
     static func instantiate() -> Self {
            return Self.init()
        }
-    
-    func statusBarBackgroundColor() {
-        
-        let view = UIView(frame:
-            CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0)
-        )
-        
-        self.view.addSubview(view)
-    }
+
 }
 
 protocol Storyboarded {

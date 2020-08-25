@@ -34,14 +34,14 @@ class SearchAccountViewModel: AccountSearchRequestObserver {
         if page != 1{
             if let data = data{
                 data.accounts.forEach({
-                    accountSearchResult.append(ShortAcc(id: $0.id, name: $0.login, avatarURL: $0.avatarURL, type: $0.type))
+                    accountSearchResult.append(ShortAcc(id: $0.id, login: $0.login, avatarURL: $0.avatarURL, type: $0.type))
                 })
             }
         } else{
             if let data = data{
                 accountSearchResult.removeAll()
                 data.accounts.forEach({
-                    accountSearchResult.append(ShortAcc(id: $0.id, name: $0.login, avatarURL: $0.avatarURL, type: $0.type))
+                    accountSearchResult.append(ShortAcc(id: $0.id, login: $0.login, avatarURL: $0.avatarURL, type: $0.type))
                 })
             }
         }
@@ -53,7 +53,7 @@ class SearchAccountViewModel: AccountSearchRequestObserver {
 
 struct ShortAcc{
     var id: Int
-    var name: String
+    var login: String
     var avatarURL: String
     var type: TypeEnum
 }

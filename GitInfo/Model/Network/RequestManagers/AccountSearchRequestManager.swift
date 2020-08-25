@@ -26,32 +26,30 @@ class AccountSearchRequestManager{
     }()
     
     func updateUsersByName(name: String, onPage: Int) {
-        DispatchQueue.main.async {
-            let urlString = "\(self.dafaultBeginURL)\(self.searchForNameMiddleURL)\(name)&page=\(onPage)&per_page=20"
-            print(urlString)
-            let request =  AF.request(urlString)
-            
-            request.responseDecodable(of: AccountSearch.self) { (response) in
-                guard let response = response.value else { return }
-                self.usersResponse = response
-                self.notify(data: response, page: onPage)
-            }
-            print("\(self.usersResponse == nil)")
+        let urlString = "\(self.dafaultBeginURL)\(self.searchForNameMiddleURL)\(name)&page=\(onPage)&per_page=20"
+        print(urlString)
+        let request =  AF.request(urlString)
+        
+        request.responseDecodable(of: AccountSearch.self) { (response) in
+            guard let response = response.value else { return }
+            self.usersResponse = response
+            self.notify(data: response, page: onPage)
         }
+        print("\(self.usersResponse == nil)")
     }
     
     var state: Int = { return Int(arc4random_uniform(10)) }()
-
+    
     private lazy var observers = [AccountSearchRequestObserver]()
-
+    
     func attach(_ observer: AccountSearchRequestObserver) {
         observers.append(observer)
     }
-
+    
     func detach(_ observer: AccountSearchRequestObserver) {
-         observers = observers.filter({$0.id != observer.id})
+        observers = observers.filter({$0.id != observer.id})
     }
-
+    
     func notify(data: AccountSearch?, page: Int) {
         observers.forEach({ $0.update(data: data, page: page)})
     }

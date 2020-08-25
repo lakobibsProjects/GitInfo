@@ -9,12 +9,16 @@
 import Foundation
 
 
-struct UserByLogin: Codable {
+struct UserByLogin: Decodable {
     var login: String?
-    var id: Int?
-    var nodeID: String?
-    var avatarURL: String?
-    var gravatarID: String?
+    var id: Int
+    var avatarURL: String
+    var name: String?
+    var location: String
+    var createdAt: Date
+    //var nodeID: String?
+    
+    /*var gravatarID: String?
     var url, htmlURL, followersURL: String?
     var followingURL, gistsURL, starredURL: String?
     var subscriptionsURL, organizationsURL, reposURL: String?
@@ -22,20 +26,24 @@ struct UserByLogin: Codable {
     var receivedEventsURL: String?
     var type: String?
     var siteAdmin: Bool?
-    var name, company: String?
+    , company: String?
     var blog: String?
-    var location: String?
-    var email, hireable: JSONNull?
-    var bio: String?
-    var twitterUsername: JSONNull?
+    
+    //var email, hireable: JSONNull?
+    //var bio: String?
+    //var twitterUsername: JSONNull?
     var publicRepos, publicGists, followers, following: Int?
-    var createdAt, updatedAt: Date?
+    //var createdAt, updatedAt: Date?*/
 
     enum CodingKeys: String, CodingKey {
-        case login, id
-        case nodeID = "node_id"
+        case login
+        case id
         case avatarURL = "avatar_url"
-        case gravatarID = "gravatar_id"
+        case name
+        case location
+        case createdAt = "created_at"
+        //case nodeID = "node_id"
+        /*case gravatarID = "gravatar_id"
         case url
         case htmlURL = "html_url"
         case followersURL = "followers_url"
@@ -49,16 +57,16 @@ struct UserByLogin: Codable {
         case receivedEventsURL = "received_events_url"
         case type
         case siteAdmin = "site_admin"
-        case name, company, blog, location, email, hireable, bio
-        case twitterUsername = "twitter_username"
+        case name, company, blog, location//, email, hireable, bio
+        //case twitterUsername = "twitter_username"
         case publicRepos = "public_repos"
         case publicGists = "public_gists"
         case followers, following
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
+        
+        case updatedAt = "updated_at"*/
     }
 }
-
+/*
 // MARK: - Encode/decode helpers
 class JSONNull: Codable, Hashable {
 
@@ -88,3 +96,4 @@ class JSONNull: Codable, Hashable {
         try container.encodeNil()
     }
 }
+*/

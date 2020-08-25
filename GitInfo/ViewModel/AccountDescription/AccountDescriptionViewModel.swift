@@ -8,12 +8,32 @@
 //
 
 import Foundation
+import UIKit
 
 class AccountDescriptionViewModel: AccountByLoginRequestObserver{
     var id: Int = 1
+    var login: String?
+    //var user: UserByLogin?
+    var avaURL = ""
+    var ava = UIImage(named: "photoPlaceholder")
+    var name = ""
+    var creationDate = ""
+    var location = ""
     
     func update(user: UserByLogin) {
-        print("\(user.name ?? "")")
+        //self.user = user
+        avaURL = user.avatarURL ?? ""
+        let url = NSURL(string: avaURL)! as URL
+        if let imageData: NSData = NSData(contentsOf: url) {
+            ava = UIImage(data: imageData as Data)
+        }        
+        name = "Name: \(user.name ?? "")"
+        //login = "Login: \(user.login ?? "")"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM yyyy"
+        creationDate = "Name: \(dateFormatter.string(from: user.createdAt ?? Date.init(timeIntervalSince1970: 0)))"
+        
+        location = "Location: \(user.location ?? "unknow")"
     }
     
 }

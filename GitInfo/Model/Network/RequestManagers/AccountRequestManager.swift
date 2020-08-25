@@ -25,32 +25,29 @@ class AccountRequestManager{
     }()
     
     func getUserByLogin(login: String) {
-        DispatchQueue.main.async {
-            let urlString = "\(self.dafaultBeginURL)\(self.searchForNameMiddleURL)\(login)"
-            print(urlString)
-            let request =  AF.request(urlString)
-            
-            request.responseDecodable(of: UserByLogin.self) { (response) in
-                guard let response = response.value else { return }
-                self.userResponse = response
-                self.notify(user: response)
-            }
-            print("\(self.userResponse == nil)")
+        let urlString = "https://api.github.com/users/\(login)"
+        print(urlString)
+        let request =  AF.request(urlString)
+        request.responseDecodable(of: UserByLogin.self) { (response) in
+            guard let response = response.value else { print("fail to response user"); return }
+            self.userResponse = response
+            self.notify(user: response)
         }
+        print("\(self.userResponse == nil)")
     }
     
     var state: Int = { return Int(arc4random_uniform(10)) }()
-
+    
     private lazy var observers = [AccountByLoginRequestObserver]()
-
+    
     func attach(_ observer: AccountByLoginRequestObserver) {
         observers.append(observer)
     }
-
+    
     func detach(_ observer: AccountByLoginRequestObserver) {
-         observers = observers.filter({$0.id != observer.id})
+        observers = observers.filter({$0.id != observer.id})
     }
-
+    
     func notify(user: UserByLogin) {
         observers.forEach({ $0.update(user: user)})
     }

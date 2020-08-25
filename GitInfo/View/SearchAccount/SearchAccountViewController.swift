@@ -29,12 +29,10 @@ class SearchAccountViewController: UIViewController, Storyboarded {
     
     var accountsTableView: UITableView!
     
+    let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector(("hideKeyboard")))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: Selector(("hideKeyboard")))
-        view.addGestureRecognizer(tap)
-        
         setup()
     }
     
@@ -63,13 +61,15 @@ class SearchAccountViewController: UIViewController, Storyboarded {
         titleLabel = UILabel()
         titleLabel.textAlignment = .center
         titleLabel.font = titleLabel.font.withSize(32)
+        titleLabel.text = "GitInfo"
         
         searchView = UIView()
         searchLabel = UILabel()
-        searchLabel.text = "GitInfo"
+        searchLabel.text = "Login:"
         searchTextField = UITextField()
         searchTextField.layer.borderWidth = 1
         searchTextField.layer.cornerRadius = 4
+        searchTextField.delegate = self
         searchButton =  UIButton()
         searchButton.layer.borderWidth = 1
         searchButton.layer.cornerRadius = 4
@@ -103,7 +103,6 @@ class SearchAccountViewController: UIViewController, Storyboarded {
     private func setWhiteTheme(){
         backgroungImageView.image = UIImage(named: "logoWhite")
         
-        titleLabel.text = "GitInfo"
         titleLabel.textColor = .black
         titleLabel.backgroundColor = .white
         
@@ -131,8 +130,8 @@ class SearchAccountViewController: UIViewController, Storyboarded {
                     print("\(self.vm.accountSearchResult.count)")
                     print("\(self.accountsTableView.numberOfRows(inSection: 0))")
                     //accountsTableView.reloadData()
+                    self.searchTextField.endEditing(false)
                 }
-                
             }
         }
     }
@@ -153,7 +152,26 @@ extension SearchAccountViewController: UITableViewDelegate, UITableViewDataSourc
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let selectedAcc = vm.accountSearchResult[indexPath.row]
+        
+        if (!selectedAcc.login.isEmpty){
+            coordinator?.accounDescription(login: selectedAcc.login)
+        }
+        
+        accountsTableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+//MARK: -TextFiewld delegate
+extension SearchAccountViewController: UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.view.addGestureRecognizer(tap)
+    }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.view.removeGestureRecognizer(tap)
+    }
 }
 
 //MARK: -Layout

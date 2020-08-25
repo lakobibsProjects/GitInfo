@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 // MARK: - AccountSearch
-struct AccountSearch: Codable {
+struct AccountSearch: Decodable {
     let totalCount: Int
     let incompleteResults: Bool
     let accounts: [SearchedAccount]

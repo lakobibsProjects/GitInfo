@@ -15,6 +15,7 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
     
+    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
@@ -28,10 +29,10 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
         navigationController.pushViewController(vc, animated: false)
     }
     
-    func accounDescription(accId: Int){
-        let vc = AccountDescriptionViewController.instantiateFromStoryboard()
+    func accounDescription(login: String){
+        let vc = AccountDescriptionViewController.instantiate()
         vc.coordinator = self
-        
+        AccountRequestManager.shared.getUserByLogin(login: login)
         navigationController.pushViewController(vc, animated: true)
     }
     
