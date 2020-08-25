@@ -31,7 +31,12 @@ class AccountSearchRequestManager{
         let request =  AF.request(urlString)
         
         request.responseDecodable(of: AccountSearch.self) { (response) in
-            guard let response = response.value else { return }
+            guard let response = response.value else {
+                let dialogMessage = UIAlertController(title: "", message: "Somthing wrong in interaction with server when request result of search" , preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default)
+                dialogMessage.addAction(ok)
+                UIApplication.shared.windows.last?.rootViewController?.present(dialogMessage, animated: true)
+                return }
             self.usersResponse = response
             self.notify(data: response, page: onPage)
         }

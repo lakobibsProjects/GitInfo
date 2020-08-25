@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7DE7B5FF9621ECFA06739919 /* Pods_GitInfo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79ED5B6C14B0F0B6D05E4819 /* Pods_GitInfo.framework */; };
+		E9813E0324F54BFD00346F1F /* RepoByLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9813E0224F54BFD00346F1F /* RepoByLogin.swift */; };
+		E9813E0524F54EA700346F1F /* RepoRequestObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9813E0424F54EA700346F1F /* RepoRequestObserver.swift */; };
+		E9813E0724F54ED900346F1F /* RepoRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9813E0624F54ED900346F1F /* RepoRequestManager.swift */; };
+		E9813E0C24F55D7400346F1F /* RepoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9813E0B24F55D7400346F1F /* RepoTableViewCell.swift */; };
 		E9818E8424F44D18003E95AF /* AccountRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9818E8324F44D18003E95AF /* AccountRequestManager.swift */; };
 		E9818E8624F44E4C003E95AF /* UserByLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9818E8524F44E4C003E95AF /* UserByLogin.swift */; };
 		E9818E8824F44F41003E95AF /* AccountsSearchRequestObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9818E8724F44F41003E95AF /* AccountsSearchRequestObserver.swift */; };
@@ -32,6 +36,10 @@
 /* Begin PBXFileReference section */
 		0C687AFD79C1C3A157E2C01D /* Pods-GitInfo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitInfo.debug.xcconfig"; path = "Target Support Files/Pods-GitInfo/Pods-GitInfo.debug.xcconfig"; sourceTree = "<group>"; };
 		79ED5B6C14B0F0B6D05E4819 /* Pods_GitInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9813E0224F54BFD00346F1F /* RepoByLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoByLogin.swift; sourceTree = "<group>"; };
+		E9813E0424F54EA700346F1F /* RepoRequestObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoRequestObserver.swift; sourceTree = "<group>"; };
+		E9813E0624F54ED900346F1F /* RepoRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoRequestManager.swift; sourceTree = "<group>"; };
+		E9813E0B24F55D7400346F1F /* RepoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepoTableViewCell.swift; sourceTree = "<group>"; };
 		E9818E8324F44D18003E95AF /* AccountRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRequestManager.swift; sourceTree = "<group>"; };
 		E9818E8524F44E4C003E95AF /* UserByLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserByLogin.swift; sourceTree = "<group>"; };
 		E9818E8724F44F41003E95AF /* AccountsSearchRequestObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsSearchRequestObserver.swift; sourceTree = "<group>"; };
@@ -90,6 +98,7 @@
 			children = (
 				E9818E8924F44F57003E95AF /* AccountByLoginRequestObserver.swift */,
 				E9818E8724F44F41003E95AF /* AccountsSearchRequestObserver.swift */,
+				E9813E0424F54EA700346F1F /* RepoRequestObserver.swift */,
 			);
 			path = ObserverProtocols;
 			sourceTree = "<group>";
@@ -99,6 +108,7 @@
 			children = (
 				E9B9072B24EF0DE700587353 /* AccountSearchRequestManager.swift */,
 				E9818E8324F44D18003E95AF /* AccountRequestManager.swift */,
+				E9813E0624F54ED900346F1F /* RepoRequestManager.swift */,
 			);
 			path = RequestManagers;
 			sourceTree = "<group>";
@@ -116,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				E985B8A524F293CE002BAC3D /* AccountDescriptionViewController.swift */,
+				E9813E0B24F55D7400346F1F /* RepoTableViewCell.swift */,
 			);
 			path = AccountDescription;
 			sourceTree = "<group>";
@@ -212,6 +223,7 @@
 			children = (
 				E98CD4D524F15F380078E554 /* SearchresultByName.swift */,
 				E9818E8524F44E4C003E95AF /* UserByLogin.swift */,
+				E9813E0224F54BFD00346F1F /* RepoByLogin.swift */,
 			);
 			path = CodableObjects;
 			sourceTree = "<group>";
@@ -349,11 +361,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9818E8624F44E4C003E95AF /* UserByLogin.swift in Sources */,
+				E9813E0724F54ED900346F1F /* RepoRequestManager.swift in Sources */,
 				E986F4A224ED7F5400A520DC /* Coordinator.swift in Sources */,
 				E98CD4D624F15F380078E554 /* SearchresultByName.swift in Sources */,
 				E985B8A924F2940C002BAC3D /* AccountDescriptionViewModel.swift in Sources */,
 				E98CD4D324F152350078E554 /* AppColor.swift in Sources */,
 				E986F4A624ED887A00A520DC /* SearchAccountViewController.swift in Sources */,
+				E9813E0524F54EA700346F1F /* RepoRequestObserver.swift in Sources */,
 				E986F48A24ED55A100A520DC /* AppDelegate.swift in Sources */,
 				E9818E8424F44D18003E95AF /* AccountRequestManager.swift in Sources */,
 				E985B8A624F293CE002BAC3D /* AccountDescriptionViewController.swift in Sources */,
@@ -363,7 +377,9 @@
 				E986F48C24ED55A100A520DC /* SceneDelegate.swift in Sources */,
 				E9818E8A24F44F57003E95AF /* AccountByLoginRequestObserver.swift in Sources */,
 				E9B9072C24EF0DE700587353 /* AccountSearchRequestManager.swift in Sources */,
+				E9813E0C24F55D7400346F1F /* RepoTableViewCell.swift in Sources */,
 				E9B9072924EF0DA600587353 /* SearchAccountViewModel.swift in Sources */,
+				E9813E0324F54BFD00346F1F /* RepoByLogin.swift in Sources */,
 				E986F4A924ED88D500A520DC /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

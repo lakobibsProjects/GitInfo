@@ -12,6 +12,8 @@ import Kingfisher
 class SearchAccountViewController: UIViewController, Storyboarded {
     weak var coordinator: MainCoordinator?    
     var vm = SearchAccountViewModel()
+    private var currentPage = 0
+    private var isLoadData = false
     
     var backgroungImageView: UIImageView!
     
@@ -122,15 +124,17 @@ class SearchAccountViewController: UIViewController, Storyboarded {
     //MARK: Event Handlers
     @objc func searchButtonClick(){
         if let name = searchTextField.text{
+            self.searchTextField.endEditing(false)
             if !name.isEmpty{
                 DispatchQueue.main.async {
+                    self.currentPage = 1
                     self.accountsTableView.beginUpdates()
                     self.vm.initializeData(name: name)
                     self.accountsTableView.endUpdates()
                     print("\(self.vm.accountSearchResult.count)")
                     print("\(self.accountsTableView.numberOfRows(inSection: 0))")
                     //accountsTableView.reloadData()
-                    self.searchTextField.endEditing(false)
+                    
                 }
             }
         }
@@ -156,10 +160,29 @@ extension SearchAccountViewController: UITableViewDelegate, UITableViewDataSourc
         let selectedAcc = vm.accountSearchResult[indexPath.row]
         
         if (!selectedAcc.login.isEmpty){
-            coordinator?.accounDescription(login: selectedAcc.login)
+            coordinator?.accountDescriptionAlternate(user: vm.accountSearchResult[indexPath.row])
         }
         
         accountsTableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+       DispatchQueue.main.async { self.isLoadData = true
+        if self.isLoadData{
+            let count = self.vm.accountSearchResult.count
+            
+            print(count)
+            if indexPath.row == (count - 1) && indexPath.row < 20 {
+                let spinner = UIActivityIndicatorView(style: .gray)
+                spinner.startAnimating()
+                spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(144))
+                self.currentPage += 1
+                self.vm.apendData(name: self.searchTextField.text!, onPage: self.currentPage)
+                self.accountsTableView.tableFooterView = spinner
+            }
+            self.isLoadData = false
+        }
+        }
     }
 }
 

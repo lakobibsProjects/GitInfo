@@ -29,7 +29,30 @@ class AccountRequestManager{
         print(urlString)
         let request =  AF.request(urlString)
         request.responseDecodable(of: UserByLogin.self) { (response) in
-            guard let response = response.value else { print("fail to response user"); return }
+            guard let response = response.value else {
+                print("fail to response user")
+                let dialogMessage = UIAlertController(title: "", message: "Somthing wrong in interaction with server when request info about user" , preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default)
+                dialogMessage.addAction(ok)
+                UIApplication.shared.windows.last?.rootViewController?.present(dialogMessage, animated: true)
+                return }
+            self.userResponse = response
+            self.notify(user: response)
+        }
+        print("\(self.userResponse == nil)")
+    }
+    
+    func getUserByURL(URL: String) {
+        print(URL)
+        let request =  AF.request(URL)
+        request.responseDecodable(of: UserByLogin.self) { (response) in
+            guard let response = response.value else {
+                print("fail to response user")
+                let dialogMessage = UIAlertController(title: "", message: "Somthing wrong in interaction with server when request info about user" , preferredStyle: .alert)
+                let ok = UIAlertAction(title: "OK", style: .default)
+                dialogMessage.addAction(ok)
+                UIApplication.shared.windows.last?.rootViewController?.present(dialogMessage, animated: true)
+                return }
             self.userResponse = response
             self.notify(user: response)
         }

@@ -47,7 +47,7 @@ class AccountTableViewCell: UITableViewCell {
         self.backgroundColor = AppColor.white
     }
     
-    func setProductData(account: ShortAcc){
+    func setProductData(account: SearchedAccount){
         if let url = URL(string: account.avatarURL){
             self.avaImageView.kf.setImage(
                 with: url,

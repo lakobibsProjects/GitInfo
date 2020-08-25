@@ -31,6 +31,7 @@ class AccountDescriptionViewController: UIViewController, Storyboarded {
     var creationDateLabel: UILabel!
     var locationLabel: UILabel!
     
+    var reposTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +75,7 @@ class AccountDescriptionViewController: UIViewController, Storyboarded {
         locationLabel = UILabel()
         locationLabel.bind(signal: .init(just: vm.location))
         
-        //avaImageView.bind(signal: .init(just: vm.ava))
+        avaImageView.bind(signal: .init(just: vm.ava))
         
         if let url = URL(string:vm.avaURL){
             self.avaImageView.kf.setImage(
@@ -86,8 +87,10 @@ class AccountDescriptionViewController: UIViewController, Storyboarded {
                     .cacheOriginalImage
             ])
         }
-
-        
+        reposTableView = UITableView()
+        reposTableView.rowHeight = UITableView.automaticDimension
+        reposTableView.estimatedRowHeight = 44
+        reposTableView.register(RepoTableViewCell.self, forCellReuseIdentifier: "RepoTableViewCell")
         
         
         if #available(iOS 13, *) {
@@ -115,6 +118,40 @@ class AccountDescriptionViewController: UIViewController, Storyboarded {
     
     @objc func popToRoot(){
         self.navigationController?.popToRootViewController(animated: true)
+    }
+}
+
+extension AccountDescriptionViewController: UITableViewDelegate, UITableViewDataSource, ExpandableCellDelegate{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "expandableCell", for: indexPath) as! RepoTableViewCell
+        cell.delegate = self
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? RepoTableViewCell {
+            cell.isExpanded = true
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? RepoTableViewCell {
+            cell.isExpanded = false
+        }
+    }
+
+    func expandableCellLayoutChanged(_ expandableCell: RepoTableViewCell) {
+        refreshTableAfterCellExpansion()
+    }
+
+    func refreshTableAfterCellExpansion() {
+        self.reposTableView.beginUpdates()
+        self.reposTableView.setNeedsDisplay()
+        self.reposTableView.endUpdates()
     }
 }
 
