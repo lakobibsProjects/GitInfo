@@ -58,6 +58,11 @@ class RepoTableViewCell: UITableViewCell {
         stack.distribution = .fill
         stack.alignment = .fill
         stack.spacing = 0
+        
+        nameLabel.textColor = AppColor.labelTextColor
+        languageLabel.textColor = AppColor.labelTextColor
+        updateDateLabel.textColor = AppColor.labelTextColor
+        starsLabel.textColor = AppColor.labelTextColor
 
         bottomView.isHidden = true
     }

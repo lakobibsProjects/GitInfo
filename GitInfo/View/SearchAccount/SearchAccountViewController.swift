@@ -51,7 +51,7 @@ class SearchAccountViewController: UIViewController, Storyboarded {
     }
     
     private func initViews(){
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = AppColor.superviewBackgroundColor
         backgroungImageView = UIImageView()
         
         navigationBar = UIView()
@@ -64,18 +64,27 @@ class SearchAccountViewController: UIViewController, Storyboarded {
         titleLabel.textAlignment = .center
         titleLabel.font = titleLabel.font.withSize(32)
         titleLabel.text = "GitInfo"
+        titleLabel.textColor = AppColor.labelTextColor
+        titleLabel.backgroundColor = AppColor.labelBackgroundColor
         
         searchView = UIView()
         searchLabel = UILabel()
         searchLabel.text = "Login:"
+        searchLabel.textColor = AppColor.labelTextColor
+        searchLabel.backgroundColor = AppColor.labelBackgroundColor
         searchTextField = UITextField()
         searchTextField.layer.borderWidth = 1
         searchTextField.layer.cornerRadius = 4
         searchTextField.delegate = self
+        searchTextField.textColor = AppColor.textFieldTextColor
+        searchTextField.backgroundColor = AppColor.textFieldBackgroundColor
+        searchTextField.layer.borderColor = AppColor.bordersGeneralColor.cgColor
         searchButton =  UIButton()
         searchButton.layer.borderWidth = 1
         searchButton.layer.cornerRadius = 4
         searchButton.addTarget(self, action: #selector(searchButtonClick), for: .touchUpInside)
+        searchButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        searchButton.layer.borderColor = AppColor.bordersGeneralColor.cgColor
         
         accountsTableView = UITableView()
         accountsTableView.register(AccountTableViewCell.self, forCellReuseIdentifier: "AccountTableViewCell")
@@ -88,37 +97,37 @@ class SearchAccountViewController: UIViewController, Storyboarded {
             cell.setProductData(account: acc)
         }
         
-        if #available(iOS 13, *) {
-            
-            if overrideUserInterfaceStyle  == .dark {
-                
-            } else {
-                setWhiteTheme()
-            }
-            
+        if #available(iOS 13, *),  overrideUserInterfaceStyle  == .dark {
+            setDarkTheme()
         } else {
             setWhiteTheme()
         }
         
     }
     
+    //MARK: -Assistant functions
     private func setWhiteTheme(){
         backgroungImageView.image = UIImage(named: "logoWhite")
-        
-        titleLabel.textColor = .black
-        titleLabel.backgroundColor = .white
-        
-        
-        searchLabel.textColor = .black
-        searchLabel.backgroundColor = .white
-        
-        searchTextField.textColor = .black
-        searchTextField.backgroundColor = .white
-        searchTextField.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-        
-        searchButton.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-        
         searchButton.setImage(UIImage(named: "searchWhite"), for: .normal)
+    }
+    
+    private func setDarkTheme(){
+        backgroungImageView.image = UIImage(named: "logoBlack")
+        searchButton.setImage(UIImage(named: "searchBlack"), for: .normal)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 12.0, *) {
+            if traitCollection.userInterfaceStyle == .dark {
+                setDarkTheme()
+            }
+            else {
+                setWhiteTheme()
+            }
+        } else {
+            setWhiteTheme()
+        }
     }
     
     //MARK: Event Handlers
@@ -132,9 +141,7 @@ class SearchAccountViewController: UIViewController, Storyboarded {
                     self.vm.initializeData(name: name)
                     self.accountsTableView.endUpdates()
                     print("\(self.vm.accountSearchResult.count)")
-                    print("\(self.accountsTableView.numberOfRows(inSection: 0))")
-                    //accountsTableView.reloadData()
-                    
+                    print("\(self.accountsTableView.numberOfRows(inSection: 0))")                    
                 }
             }
         }
@@ -259,7 +266,7 @@ extension SearchAccountViewController{
         searchButton.snp.makeConstraints({
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview()
-            $0.height.width.equalTo(24)
+            $0.height.width.equalTo(28)
         })
         
         accountsTableView.snp.makeConstraints({

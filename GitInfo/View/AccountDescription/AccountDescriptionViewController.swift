@@ -46,7 +46,7 @@ class AccountDescriptionViewController: UIViewController, Storyboarded {
     }
     
     private func initViews(){
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = AppColor.superviewBackgroundColor
         backgroungImageView = UIImageView()
         
         navigationBar = UIView()
@@ -63,17 +63,22 @@ class AccountDescriptionViewController: UIViewController, Storyboarded {
         titleLabel.textAlignment = .center
         titleLabel.font = titleLabel.font.withSize(32)
         titleLabel.text = "GitInfo"
+        titleLabel.textColor = AppColor.labelTextColor
         
         contentView = UIView()
         avaImageView = UIImageView()
         nameLabel = UILabel()
         nameLabel.bind(signal: .init(just: vm.name))
+        nameLabel.textColor = AppColor.labelTextColor
         loginLabel = UILabel()
         loginLabel.bind(signal: .init(just: vm.login))
+        loginLabel.textColor = AppColor.labelTextColor
         creationDateLabel = UILabel()
         creationDateLabel.bind(signal: .init(just: vm.creationDate))
+        creationDateLabel.textColor = AppColor.labelTextColor
         locationLabel = UILabel()
         locationLabel.bind(signal: .init(just: vm.location))
+        locationLabel.textColor = AppColor.labelTextColor
         
         avaImageView.bind(signal: .init(just: vm.ava))
         
@@ -93,13 +98,8 @@ class AccountDescriptionViewController: UIViewController, Storyboarded {
         reposTableView.register(RepoTableViewCell.self, forCellReuseIdentifier: "RepoTableViewCell")
         
         
-        if #available(iOS 13, *) {
-            
-            if overrideUserInterfaceStyle  == .dark {
-                
-            } else {
-                setWhiteTheme()
-            }
+        if #available(iOS 13, *), overrideUserInterfaceStyle  == .dark {
+          setDarkTheme()
             
         } else {
             setWhiteTheme()
@@ -107,15 +107,32 @@ class AccountDescriptionViewController: UIViewController, Storyboarded {
         
     }
     
+    //MARK: Assistant functions
     private func setWhiteTheme(){
         backgroungImageView.image = UIImage(named: "logoWhite")
         backButton.setImage(UIImage(named: "back_arrow"), for: .normal)
-        
-        titleLabel.textColor = .black
-        titleLabel.backgroundColor = .white
-        
     }
     
+    private func setDarkTheme(){
+        backgroungImageView.image = UIImage(named: "logoWhite")
+        backButton.setImage(UIImage(named: "back_arrow"), for: .normal)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 12.0, *) {
+            if traitCollection.userInterfaceStyle == .dark {
+                setDarkTheme()
+            }
+            else {
+                setWhiteTheme()
+            }
+        } else {
+            setWhiteTheme()
+        }
+    }
+    
+    //MARK: Event handlers
     @objc func popToRoot(){
         self.navigationController?.popToRootViewController(animated: true)
     }
@@ -159,7 +176,7 @@ extension AccountDescriptionViewController: UITableViewDelegate, UITableViewData
 //MARK: -Layout
 extension AccountDescriptionViewController{
     private func setupViews(){
-        self.view.addSubview(backgroungImageView)
+        //self.view.addSubview(backgroungImageView)
         self.view.addSubview(navigationBar)
         self.view.addSubview(contentView)
         
@@ -177,10 +194,10 @@ extension AccountDescriptionViewController{
     }
     
     private func setupConstraints(){
-        backgroungImageView.snp.makeConstraints({
+        /*backgroungImageView.snp.makeConstraints({
             $0.width.centerX.centerY.equalToSuperview().inset(16)
             $0.height.equalTo(backgroungImageView.snp.width)
-        })
+        })*/
         
         navigationBar.snp.makeConstraints({
             $0.trailing.leading.top.equalToSuperview()

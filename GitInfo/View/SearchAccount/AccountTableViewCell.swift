@@ -10,11 +10,12 @@ import UIKit
 import SnapKit
 
 class AccountTableViewCell: UITableViewCell {
+    private var account: SearchedAccount?
     
     let avaImageView = UIImageView()
     let nameLabel = UILabel()
     let typeImageView = UIImageView()
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
@@ -23,16 +24,16 @@ class AccountTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
-
+        
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         
     }
     
@@ -44,10 +45,11 @@ class AccountTableViewCell: UITableViewCell {
     
     
     private func initViews(){
-        self.backgroundColor = AppColor.white
+        self.backgroundColor = AppColor.superviewBackgroundColor
     }
     
     func setProductData(account: SearchedAccount){
+        self.account = account
         if let url = URL(string: account.avatarURL){
             self.avaImageView.kf.setImage(
                 with: url,
@@ -61,13 +63,66 @@ class AccountTableViewCell: UITableViewCell {
         
         self.nameLabel.text = account.login
         
-        switch account.type{
+        
+        if #available(iOS 13, *) {
+            if traitCollection.userInterfaceStyle == .dark {
+                
+                setDarkTheme()
+            }
+            else {
+                setWhiteTheme()
+            }
+        } else {
+            setWhiteTheme()
+        }
+        
+        
+    }
+    
+    private func setAccountImage(type: AccountType){
+        switch type{
         case .organization:
             self.typeImageView.image = UIImage(named: "companyWhite")
         case .user:
             self.typeImageView.image = UIImage(named: "userWhite")
         }
-        
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 12.0, *) {
+            if traitCollection.userInterfaceStyle == .dark {
+                
+                setDarkTheme()
+            }
+            else {
+                setWhiteTheme()
+            }
+        } else {
+            setWhiteTheme()
+        }
+    }
+    
+    private func setWhiteTheme(){
+        if let acc = self.account{
+            switch acc.type{
+            case .organization:
+                self.typeImageView.image = UIImage(named: "companyWhite")
+            case .user:
+                self.typeImageView.image = UIImage(named: "userWhite")
+            }
+        }
+    }
+    
+    private func setDarkTheme(){
+        if let acc = self.account{
+            switch acc.type{
+            case .organization:
+                self.typeImageView.image = UIImage(named: "companyBlack")
+            case .user:
+                self.typeImageView.image = UIImage(named: "userBlack")
+            }
+        }
     }
     
     @objc func onTap(){
@@ -99,5 +154,5 @@ class AccountTableViewCell: UITableViewCell {
             $0.trailing.equalToSuperview().inset(16)
         })
     }
-
+    
 }

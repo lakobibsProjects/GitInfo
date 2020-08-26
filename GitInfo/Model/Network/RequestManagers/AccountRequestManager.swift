@@ -42,9 +42,9 @@ class AccountRequestManager{
         print("\(self.userResponse == nil)")
     }
     
-    func getUserByURL(URL: String) {
-        print(URL)
-        let request =  AF.request(URL)
+    func getUserByURL(urlString: String) {
+        print(urlString)
+        let request =  AF.request(urlString)
         request.responseDecodable(of: UserByLogin.self) { (response) in
             guard let response = response.value else {
                 print("fail to response user")
@@ -57,6 +57,25 @@ class AccountRequestManager{
             self.notify(user: response)
         }
         print("\(self.userResponse == nil)")
+        
+        
+        /*guard let url = URL(string: urlString) else {return}
+        let task = URLSession.shared.dataTask(with: URL(string: urlString)!) { (data, response, error) in
+            guard let dataResponse = data,
+                error == nil else {
+                    print(error?.localizedDescription ?? "Response Error")
+                    return }
+            do {
+                //here dataResponse received from a network request
+                let decoder = JSONDecoder()
+                let model = try decoder.decode(UserByLogin.self, from:dataResponse) //Decode JSON Response Data
+                print(model)
+                self.notify(user: model)
+            } catch let parsingError {
+                print("Error", parsingError)
+            }
+        }
+        task.resume()*/
     }
     
     var state: Int = { return Int(arc4random_uniform(10)) }()

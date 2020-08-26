@@ -25,7 +25,7 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
         navigationController.delegate = self
         let vc = SearchAccountViewController.instantiate()
         vc.coordinator = self
-        //vc.vm = SearchAccountViewModel()
+        vc.vm = SearchAccountViewModel()
         navigationController.pushViewController(vc, animated: false)
     }
     
@@ -46,7 +46,7 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
             vc.vm.ava = UIImage(data: imageData as Data)
         }
         vc.vm.login = "Login: \(user.login)"
-        AccountRequestManager.shared.getUserByURL(URL: user.url)
+        AccountRequestManager.shared.getUserByURL(urlString: user.url)
         RepoRequestManager.shared.getReposByURL(URL: user.reposURL)
         navigationController.pushViewController(vc, animated: true)
     }

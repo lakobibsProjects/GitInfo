@@ -26,9 +26,9 @@
 		E986F4A424ED7F6000A520DC /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E986F4A324ED7F6000A520DC /* MainCoordinator.swift */; };
 		E986F4A624ED887A00A520DC /* SearchAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E986F4A524ED887A00A520DC /* SearchAccountViewController.swift */; };
 		E986F4A924ED88D500A520DC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E986F4A824ED88D500A520DC /* Extensions.swift */; };
-		E98CD4D324F152350078E554 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98CD4D224F152350078E554 /* AppColor.swift */; };
 		E98CD4D624F15F380078E554 /* SearchresultByName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98CD4D524F15F380078E554 /* SearchresultByName.swift */; };
 		E98CD4D824F18A9A0078E554 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98CD4D724F18A9A0078E554 /* AccountTableViewCell.swift */; };
+		E9A3544224F67A3600C1D436 /* AppColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A3544124F67A3600C1D436 /* AppColor.swift */; };
 		E9B9072924EF0DA600587353 /* SearchAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9072824EF0DA600587353 /* SearchAccountViewModel.swift */; };
 		E9B9072C24EF0DE700587353 /* AccountSearchRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B9072B24EF0DE700587353 /* AccountSearchRequestManager.swift */; };
 /* End PBXBuildFile section */
@@ -56,9 +56,9 @@
 		E986F4A324ED7F6000A520DC /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		E986F4A524ED887A00A520DC /* SearchAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAccountViewController.swift; sourceTree = "<group>"; };
 		E986F4A824ED88D500A520DC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		E98CD4D224F152350078E554 /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
 		E98CD4D524F15F380078E554 /* SearchresultByName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchresultByName.swift; sourceTree = "<group>"; };
 		E98CD4D724F18A9A0078E554 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
+		E9A3544124F67A3600C1D436 /* AppColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColor.swift; sourceTree = "<group>"; };
 		E9B9072824EF0DA600587353 /* SearchAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAccountViewModel.swift; sourceTree = "<group>"; };
 		E9B9072B24EF0DE700587353 /* AccountSearchRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSearchRequestManager.swift; sourceTree = "<group>"; };
 		E9CF42631EC541CCF7D9FC4D /* Pods-GitInfo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitInfo.release.xcconfig"; path = "Target Support Files/Pods-GitInfo/Pods-GitInfo.release.xcconfig"; sourceTree = "<group>"; };
@@ -176,6 +176,7 @@
 		E986F49D24ED7F2000A520DC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E9A3544024F67A2100C1D436 /* Style */,
 				E9B9072A24EF0DD700587353 /* Network */,
 			);
 			path = Model;
@@ -213,7 +214,6 @@
 			isa = PBXGroup;
 			children = (
 				E986F4A824ED88D500A520DC /* Extensions.swift */,
-				E98CD4D224F152350078E554 /* AppColor.swift */,
 			);
 			path = Assistance;
 			sourceTree = "<group>";
@@ -226,6 +226,14 @@
 				E9813E0224F54BFD00346F1F /* RepoByLogin.swift */,
 			);
 			path = CodableObjects;
+			sourceTree = "<group>";
+		};
+		E9A3544024F67A2100C1D436 /* Style */ = {
+			isa = PBXGroup;
+			children = (
+				E9A3544124F67A3600C1D436 /* AppColor.swift */,
+			);
+			path = Style;
 			sourceTree = "<group>";
 		};
 		E9B9072724EEA35900587353 /* SearchAccount */ = {
@@ -365,10 +373,10 @@
 				E986F4A224ED7F5400A520DC /* Coordinator.swift in Sources */,
 				E98CD4D624F15F380078E554 /* SearchresultByName.swift in Sources */,
 				E985B8A924F2940C002BAC3D /* AccountDescriptionViewModel.swift in Sources */,
-				E98CD4D324F152350078E554 /* AppColor.swift in Sources */,
 				E986F4A624ED887A00A520DC /* SearchAccountViewController.swift in Sources */,
 				E9813E0524F54EA700346F1F /* RepoRequestObserver.swift in Sources */,
 				E986F48A24ED55A100A520DC /* AppDelegate.swift in Sources */,
+				E9A3544224F67A3600C1D436 /* AppColor.swift in Sources */,
 				E9818E8424F44D18003E95AF /* AccountRequestManager.swift in Sources */,
 				E985B8A624F293CE002BAC3D /* AccountDescriptionViewController.swift in Sources */,
 				E98CD4D824F18A9A0078E554 /* AccountTableViewCell.swift in Sources */,

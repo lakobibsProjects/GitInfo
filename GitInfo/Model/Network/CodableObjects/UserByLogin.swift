@@ -14,7 +14,7 @@ struct UserByLogin: Decodable {
     var id: Int
     var avatarURL: String
     var name: String?
-    var location: String
+    var location: String?
     var createdAt: Date
     //var nodeID: String?
     
