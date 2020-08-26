@@ -10,5 +10,5 @@ import Foundation
 
 protocol RepoRequestObserver{
     var id : Int { get }
-    func updateRepo(data: RepoResponse)
+    func updateRepo(data: Repos)
 }

@@ -12,7 +12,7 @@ import Alamofire
 class RepoRequestManager{
     let dafaultBeginURL = "https://api.github.com"
     let searchForNameMiddleURL = "/search/users?q="
-    var repoResponse: RepoResponse?
+    var repoResponse: Repos?
     //singleton
     private init(){
         
@@ -34,7 +34,7 @@ class RepoRequestManager{
         
         print(urlString)
         let request =  AF.request(urlString)
-        request.responseDecodable(of: RepoResponse.self) { (response) in
+        request.responseDecodable(of: Repos.self) { (response) in
             guard let response = response.value else {
                 print("fail to response repos")
                 let dialogMessage = UIAlertController(title: "", message: "Somthing wrong in interaction with server when request repositories" , preferredStyle: .alert)
@@ -50,7 +50,7 @@ class RepoRequestManager{
     func getReposByURL(URL: String) {
         print(URL)
         let request =  AF.request(URL)
-        request.responseDecodable(of: RepoResponse.self) { (response) in
+        request.responseDecodable(of: Repos.self) { (response) in
             guard let response = response.value else {
                 print("fail to response repos")
                 let dialogMessage = UIAlertController(title: "", message: "Somthing wrong in interaction with server when request repositories" , preferredStyle: .alert)
@@ -75,7 +75,7 @@ class RepoRequestManager{
         observers = observers.filter({$0.id != observer.id})
     }
     
-    func notify(data: RepoResponse) {
+    func notify(data: Repos) {
         observers.forEach({ $0.updateRepo(data: data)})
     }
     

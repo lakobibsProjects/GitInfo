@@ -9,6 +9,7 @@
 
 import Foundation
 import UIKit
+import Bond
 
 class AccountDescriptionViewModel: AccountByLoginRequestObserver, RepoRequestObserver{
     var id: Int = 1
@@ -18,7 +19,7 @@ class AccountDescriptionViewModel: AccountByLoginRequestObserver, RepoRequestObs
     var name = "Name: "
     var creationDate = "Creation date: "
     var location = "Location: "
-    var repos = RepoResponse()
+    var repos = MutableObservableArray<RepoResponse>()
     
     init(){
         AccountRequestManager.shared.attach(self)
@@ -40,8 +41,11 @@ class AccountDescriptionViewModel: AccountByLoginRequestObserver, RepoRequestObs
         location = "Location: \(user.location)"
     }
     
-    func updateRepo(data: RepoResponse) {
-        repos = data
+    func updateRepo(data: Repos) {
+        repos.removeAll()
+        for r in data.repos{
+            repos.append(r)
+        }
     }
     
 }

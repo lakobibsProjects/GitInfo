@@ -96,7 +96,9 @@ class AccountDescriptionViewController: UIViewController, Storyboarded {
         reposTableView.rowHeight = UITableView.automaticDimension
         reposTableView.estimatedRowHeight = 44
         reposTableView.register(RepoTableViewCell.self, forCellReuseIdentifier: "RepoTableViewCell")
-        
+        vm.repos.bind(to: reposTableView, cellType: RepoTableViewCell.self){ (cell, repo) in
+            cell.setRepoData(repo: repo)
+        }
         
         if #available(iOS 13, *), overrideUserInterfaceStyle  == .dark {
           setDarkTheme()

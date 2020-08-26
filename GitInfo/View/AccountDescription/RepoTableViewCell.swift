@@ -67,8 +67,15 @@ class RepoTableViewCell: UITableViewCell {
         bottomView.isHidden = true
     }
     
-    func setRepoData(account: RepoResponse){
-    
+    func setRepoData(repo: RepoResponse){
+        nameLabel.text = "Repo: \(String(describing: repo.name))"
+        languageLabel.text = "Repo: \(String(describing: repo.language))"
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "dd MMMM yyyy"
+        let update = "Creation date: \(dateFormatter.string(from: repo.updatedAt ?? Date.init(timeIntervalSince1970: 0)))"
+        updateDateLabel.text = "Repo: \(update)"
+        starsLabel.text = "Repo: \(String(describing: repo.stargazersCount))"
     }
     
     func setupViews(){
