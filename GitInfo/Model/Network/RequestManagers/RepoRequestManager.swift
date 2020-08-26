@@ -11,10 +11,9 @@ import Alamofire
 
 class RepoRequestManager{
     let dafaultBeginURL = "https://api.github.com"
-    let generalAcceptHeader = "application/vnd.github.v3+json"
     let searchForNameMiddleURL = "/search/users?q="
     var repoResponse: RepoResponse?
-    
+    //singleton
     private init(){
         
     }
@@ -24,6 +23,7 @@ class RepoRequestManager{
         return instance
     }()
     
+    //request logic
     func getReposByLogin(login: String, isUser: Bool) {
         var urlString = ""
         if isUser{
@@ -34,7 +34,7 @@ class RepoRequestManager{
         
         print(urlString)
         let request =  AF.request(urlString)
-        request.responseDecodable(of: Repos.self) { (response) in
+        request.responseDecodable(of: RepoResponse.self) { (response) in
             guard let response = response.value else {
                 print("fail to response repos")
                 let dialogMessage = UIAlertController(title: "", message: "Somthing wrong in interaction with server when request repositories" , preferredStyle: .alert)
@@ -42,16 +42,15 @@ class RepoRequestManager{
                 dialogMessage.addAction(ok)
                 UIApplication.shared.windows.last?.rootViewController?.present(dialogMessage, animated: true)
                 return }
-            //self.repoResponse = response
-            //self.notify(data: response)
+            self.repoResponse = response
+            self.notify(data: response)
         }
-        print("\(self.repoResponse == nil)")
     }
     
     func getReposByURL(URL: String) {
         print(URL)
         let request =  AF.request(URL)
-        request.responseDecodable(of: Repos.self) { (response) in
+        request.responseDecodable(of: RepoResponse.self) { (response) in
             guard let response = response.value else {
                 print("fail to response repos")
                 let dialogMessage = UIAlertController(title: "", message: "Somthing wrong in interaction with server when request repositories" , preferredStyle: .alert)
@@ -59,12 +58,11 @@ class RepoRequestManager{
                 dialogMessage.addAction(ok)
                 UIApplication.shared.windows.last?.rootViewController?.present(dialogMessage, animated: true)
                 return }
-            //self.repoResponse = response
-            //self.notify(data: response)
+            self.repoResponse = response
+            self.notify(data: response)
         }
-        print("\(self.repoResponse == nil)")
     }
-    
+    //observer
     var state: Int = { return Int(arc4random_uniform(10)) }()
     
     private lazy var observers = [RepoRequestObserver]()
@@ -77,8 +75,8 @@ class RepoRequestManager{
         observers = observers.filter({$0.id != observer.id})
     }
     
-    func notify(data: Repos) {
-        //observers.forEach({ $0.updateRepo(data: data)})
+    func notify(data: RepoResponse) {
+        observers.forEach({ $0.updateRepo(data: data)})
     }
     
 }

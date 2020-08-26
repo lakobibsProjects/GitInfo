@@ -18,7 +18,7 @@ class AccountDescriptionViewModel: AccountByLoginRequestObserver, RepoRequestObs
     var name = "Name: "
     var creationDate = "Creation date: "
     var location = "Location: "
-    var repos = [RepoResponse]()
+    var repos = RepoResponse()
     
     init(){
         AccountRequestManager.shared.attach(self)
@@ -26,14 +26,13 @@ class AccountDescriptionViewModel: AccountByLoginRequestObserver, RepoRequestObs
     }
     
     func update(user: UserByLogin) {
-        //self.user = user
         avaURL = user.avatarURL
         let url = NSURL(string: avaURL)! as URL
         if let imageData: NSData = NSData(contentsOf: url) {
             ava = UIImage(data: imageData as Data)
         }        
         name = "Name: \(user.name ?? "")"
-        //login = "Login: \(user.login ?? "")"
+        login = "Login: \(user.login ?? "")"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMMM yyyy"
         creationDate = "Creation date: \(dateFormatter.string(from: user.createdAt ))"
@@ -41,8 +40,8 @@ class AccountDescriptionViewModel: AccountByLoginRequestObserver, RepoRequestObs
         location = "Location: \(user.location)"
     }
     
-    func updateRepo(data: Repos) {
-        //repos = data.repos
+    func updateRepo(data: RepoResponse) {
+        repos = data
     }
     
 }

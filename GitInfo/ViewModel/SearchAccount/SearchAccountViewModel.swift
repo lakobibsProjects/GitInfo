@@ -48,6 +48,17 @@ class SearchAccountViewModel: AccountSearchRequestObserver {
         
         
     }
+    
+    func sort(){
+        var array: [SearchedAccount] = accountSearchResult.array
+        array.sort(by: {
+            $0.login > $1.login
+        })
+        accountSearchResult.removeAll()
+        for a in array{
+            accountSearchResult.append(a)
+        }
+    }
 
 }
 

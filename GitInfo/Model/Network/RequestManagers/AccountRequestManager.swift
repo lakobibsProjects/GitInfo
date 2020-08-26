@@ -11,10 +11,10 @@ import Alamofire
 
 class AccountRequestManager{
     let dafaultBeginURL = "https://api.github.com"
-    let generalAcceptHeader = "application/vnd.github.v3+json"
     let searchForNameMiddleURL = "/users/"
     var userResponse: UserByLogin?
     
+    //singleton
     private init(){
         
     }
@@ -24,6 +24,7 @@ class AccountRequestManager{
         return instance
     }()
     
+    //request logic
     func getUserByLogin(login: String) {
         let urlString = "https://api.github.com/users/\(login)"
         print(urlString)
@@ -39,7 +40,6 @@ class AccountRequestManager{
             self.userResponse = response
             self.notify(user: response)
         }
-        print("\(self.userResponse == nil)")
     }
     
     func getUserByURL(urlString: String) {
@@ -58,7 +58,7 @@ class AccountRequestManager{
         }
         print("\(self.userResponse == nil)")
         
-        
+        //classic alternative request
         /*guard let url = URL(string: urlString) else {return}
         let task = URLSession.shared.dataTask(with: URL(string: urlString)!) { (data, response, error) in
             guard let dataResponse = data,
@@ -77,7 +77,7 @@ class AccountRequestManager{
         }
         task.resume()*/
     }
-    
+    //observerPattern
     var state: Int = { return Int(arc4random_uniform(10)) }()
     
     private lazy var observers = [AccountByLoginRequestObserver]()

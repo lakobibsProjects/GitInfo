@@ -28,6 +28,7 @@ class SearchAccountViewController: UIViewController, Storyboarded {
     var searchLabel: UILabel!
     var searchTextField: UITextField!
     var searchButton: UIButton!
+    var sortButton: UIButton!
     
     var accountsTableView: UITableView!
     
@@ -85,6 +86,14 @@ class SearchAccountViewController: UIViewController, Storyboarded {
         searchButton.addTarget(self, action: #selector(searchButtonClick), for: .touchUpInside)
         searchButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         searchButton.layer.borderColor = AppColor.bordersGeneralColor.cgColor
+        sortButton = UIButton()
+        sortButton.layer.borderWidth = 1
+        sortButton.layer.cornerRadius = 4
+        sortButton.addTarget(self, action: #selector(sortButtonClick), for: .touchUpInside)
+        sortButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        sortButton.layer.borderColor = AppColor.bordersGeneralColor.cgColor
+        sortButton.setTitle("Sort", for: .normal)
+        sortButton.setTitleColor(AppColor.labelTextColor, for: .normal)
         
         accountsTableView = UITableView()
         accountsTableView.register(AccountTableViewCell.self, forCellReuseIdentifier: "AccountTableViewCell")
@@ -146,6 +155,13 @@ class SearchAccountViewController: UIViewController, Storyboarded {
             }
         }
     }
+    
+    @objc func sortButtonClick(){
+        print("accSorted")
+        if !(searchTextField.text?.isEmpty ?? true){
+            vm.sort()
+        }
+    }
 }
 
 //MARK: - TableView delegate and dataSource
@@ -163,7 +179,7 @@ extension SearchAccountViewController: UITableViewDelegate, UITableViewDataSourc
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedAcc = vm.accountSearchResult[indexPath.row]
         
         if (!selectedAcc.login.isEmpty){
@@ -174,21 +190,22 @@ extension SearchAccountViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-       DispatchQueue.main.async { self.isLoadData = true
-        if self.isLoadData{
-            let count = self.vm.accountSearchResult.count
-            
-            print(count)
-            if indexPath.row == (count - 1) && indexPath.row < 20 {
-                let spinner = UIActivityIndicatorView(style: .gray)
-                spinner.startAnimating()
-                spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(144))
-                self.currentPage += 1
-                self.vm.apendData(name: self.searchTextField.text!, onPage: self.currentPage)
-                self.accountsTableView.tableFooterView = spinner
+        DispatchQueue.main.async {
+            self.isLoadData = true
+            if self.isLoadData{
+                let count = self.vm.accountSearchResult.count
+                
+                print(count)
+                if indexPath.row == (count - 1) && indexPath.row < 20 {
+                    let spinner = UIActivityIndicatorView(style: .gray)
+                    spinner.startAnimating()
+                    spinner.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: tableView.bounds.width, height: CGFloat(144))
+                    self.currentPage += 1
+                    self.vm.apendData(name: self.searchTextField.text!, onPage: self.currentPage)
+                    self.accountsTableView.tableFooterView = spinner
+                }
+                self.isLoadData = false
             }
-            self.isLoadData = false
-        }
         }
     }
 }
@@ -219,6 +236,7 @@ extension SearchAccountViewController{
         
         searchView.addSubview(searchTextField)
         searchView.addSubview(searchButton)
+        searchView.addSubview(sortButton)
         searchView.addSubview(searchLabel)
     }
     
@@ -260,13 +278,20 @@ extension SearchAccountViewController{
             $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
             $0.height.equalTo(24)
-            $0.trailing.equalToSuperview().inset(36)
+            $0.trailing.equalToSuperview().inset(92)
         })
         
         searchButton.snp.makeConstraints({
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(60)
             $0.height.width.equalTo(28)
+        })
+        
+        sortButton.snp.makeConstraints({
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview()
+            $0.height.equalTo(28)
+            $0.width.equalTo(56)
         })
         
         accountsTableView.snp.makeConstraints({

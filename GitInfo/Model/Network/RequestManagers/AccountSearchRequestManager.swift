@@ -12,10 +12,9 @@ import Alamofire
 
 class AccountSearchRequestManager{
     let dafaultBeginURL = "https://api.github.com"
-    let generalAcceptHeader = "application/vnd.github.v3+json"
     let searchForNameMiddleURL = "/search/users?q="
     var usersResponse: AccountSearch?
-    
+    //singleton
     private init(){
         
     }
@@ -24,12 +23,11 @@ class AccountSearchRequestManager{
         let instance = AccountSearchRequestManager()
         return instance
     }()
-    
+    //request logic
     func updateUsersByName(name: String, onPage: Int) {
         let urlString = "\(self.dafaultBeginURL)\(self.searchForNameMiddleURL)\(name)&page=\(onPage)&per_page=20"
         print(urlString)
         let request =  AF.request(urlString)
-        
         request.responseDecodable(of: AccountSearch.self) { (response) in
             guard let response = response.value else {
                 let dialogMessage = UIAlertController(title: "", message: "Somthing wrong in interaction with server when request result of search" , preferredStyle: .alert)
@@ -40,9 +38,8 @@ class AccountSearchRequestManager{
             self.usersResponse = response
             self.notify(data: response, page: onPage)
         }
-        print("\(self.usersResponse == nil)")
     }
-    
+    //observer
     var state: Int = { return Int(arc4random_uniform(10)) }()
     
     private lazy var observers = [AccountSearchRequestObserver]()
